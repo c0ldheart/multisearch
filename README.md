@@ -1,6 +1,6 @@
 # multisearch
 
-A simple html website for multisearch
+A simple web page that displays multiple search engine results on a single page.
 
 Support search engine：
 
