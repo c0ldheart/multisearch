@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <style>
+            iframe {
+                width: 50%;
+                height: 97vh;
+            }
+        </style>
+    </head>
+    <body onkeydown="if(event.keyCode===13) document.all.searchbutton.click()"> 
+        <div>
+            <input id="search" type="text" autofocus/>
+            <button type="button" id="searchbutton" onclick="search()">Search</button>
+            <div id="search-container" class="flex" style="display: flex;"></div>
+        </div>
+        <script>
+            const searchEngines = {
+                Sogou: 'https://www.sogou.com/web?query=',
+                Google: 'https://www.google.com/search?igu=1&q='
+                // Bing: 'https://www.bing.com/search?q=',
+                
+                // Bilibili: 'https://search.bilibili.com/all?keyword='
+            }
+
+            const container = document.getElementById('search-container')
+            for (const engine in searchEngines) {
+                const iframe = document.createElement('iframe')
+                iframe.id = engine
+                container.appendChild(iframe)
+            }
+
+            function search() {
+                const search = document.getElementById('search').value
+                for (const engine in searchEngines) {
+                    document.getElementById(engine).src =
+                        searchEngines[engine] + search
+                }
+            }
+
+
+        </script>
+        
+    </body>
+</html>
