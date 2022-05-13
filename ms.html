@@ -12,10 +12,11 @@
     </head>
     <body onkeydown="if(event.keyCode===13) document.all.searchbutton.click()"> 
         <div>
-            <input id="search" type="text" autofocus/>
+            <input id="search" type="text"  autofocus/>
             <button type="button" id="searchbutton" onclick="search()">Search</button>
             <div id="search-container" class="flex" style="display: flex;"></div>
         </div>
+        
         <script>
             const searchEngines = {
                 Sogou: 'https://www.sogou.com/web?query=',
@@ -26,11 +27,16 @@
             }
 
             const container = document.getElementById('search-container')
+            
             for (const engine in searchEngines) {
                 const iframe = document.createElement('iframe')
                 iframe.id = engine
                 container.appendChild(iframe)
             }
+            document.getElementById('search').value = getKeywords()
+            // alert(GetQueryString())
+            search()
+            // add GetQueryString() to searchtext
 
             function search() {
                 const search = document.getElementById('search').value
@@ -39,7 +45,21 @@
                         searchEngines[engine] + search
                 }
             }
+            function getKeywords() {
+                var url = document.location.toString();//获取url地址
+                var urlParmStr = url.slice(url.indexOf('?')+1);//获取问号后所有的字符串
+                var arr = urlParmStr.split('&');//通过&符号将字符串分割转成数组
+                var keywords = arr[0].split("=")[1];//获取数组中第一个参数
+                keywords = decodeURI(keywords);//转码将解码方式unscape换为decodeURI，将中文参数获取
+                return keywords
+            }
+            
 
+        //     function GetQueryString() {
+        //     var reg = new RegExp("(^|&)" + 'search' + "=([^&]*)(&|$)", "i");
+        //     var r = window.location.search.substr(1).match(reg);
+        //     if (r != null) return unescape(r[2]); return null;
+        // }
 
         </script>
         
